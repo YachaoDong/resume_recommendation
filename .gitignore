@@ -1,0 +1,11 @@
+######################################################################
+# Build Tools
+
+models/**
+data_files/exp3/**
+data_files/city_code.json
+data_files/workspaces.json
+.idea
+__pycache__
+
+
