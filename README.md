@@ -36,7 +36,7 @@
 
 
 # 3、细节内容
-![img](docs/train and infer.jpg)  
+![img](docs/train_and_infer.png)  
 
 
 **特征工程部分需要按照自己数据的特征进行适配**，比如简历和岗位的期望城市、期望职位、期望薪资是否相匹配(转换为0,1),
