@@ -7,5 +7,7 @@ data_files/city_code.json
 data_files/workspaces.json
 .idea
 __pycache__
+configs/server_product.yml
+configs/server_test.yml
 
 
