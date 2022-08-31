@@ -57,56 +57,87 @@ def del_attr(df, use_tfidf=False, use_doc2vec=True):
 
 # 根据字段获取 职位 最低薪资
 def get_min_salary(x):
-    if not re.search(r'\d', str(x)):
-        return -1
-    else:
-        min_salary = str(x).split('~')[0]
-        if not re.search(r'\d', min_salary):
+    try:
+        if not re.search(r'\d', str(x)):
             return -1
         else:
-            return int(min_salary.split('k')[0])
+            min_salary = str(x).split('~')[0]
+            if not re.search(r'\d', min_salary):
+                return -1
+            else:
+                return int(min_salary.split('k')[0])
+    except:
+        print('get_min_salary error, it has return -1')
+        return -1
+
 # 根据字段获取 职位 最高薪资
 def get_max_salary(x):
-    if not re.search(r'\d', str(x)):
-        return -1
-    else:
-        max_salary = str(x).split('~')[1]
-        if not re.search(r'\d', max_salary):
+    try:
+        if not re.search(r'\d', str(x)):
             return -1
         else:
-            return int(max_salary.split('k')[0])
+            max_salary = str(x).split('~')[1]
+            if not re.search(r'\d', max_salary):
+                return -1
+            else:
+                return int(max_salary.split('k')[0])
+    except:
+        print('get_max_salary error, it has return -1')
+        return -1
 
 # 获取期望最低薪资
 def get_desire_min_salary(x):
-    min_list = [int(i.split('K')[0]) for i in x.split(',')]
-    return min(min_list)
+    try:
+        min_list = [int(i.split('K')[0]) for i in x.split(',')]
+        return min(min_list)
+    except:
+        print(f'get_desire_min_salary error, the origin x is {x}, and it has returned default -1.')
+        return -1
 
 # 获取期望最高薪资
 def get_desire_max_salary(x):
-    max_list = [int(i.split('K')[0]) for i in x.split(',')]
-    return max(max_list)
+    try:
+        max_list = [int(i.split('K')[0]) for i in x.split(',')]
+        return max(max_list)
+    except:
+        print(f'get_desire_max_salary error, the origin x is {x}, and it has returned -1.')
+        return -1
 
 
 def get_user_edu(x):
-    edu_list = [degree_map_user[i] for i in str(x).split(',')]
-    return max(edu_list)
+    try:
+        edu_list = [degree_map_user[i] for i in str(x).split(',')]
+        return max(edu_list)
+    except:
+        print(f'get_user_edu error, the origin x is {x}, and it has returned -1.')
+        return -1
+
 
 # 获取岗位工作地点编码
 def get_jd_city_id(x):
-    x = eval(str(x))
-    city_list = []
-    for kv in x:
-        try:
-            city_list.append(int(kv["code"]))
-        except:
-            city_list.append(-1)
-    # print('city_list:', city_list)
-    return city_list
+    try:
+        x = eval(str(x))
+        city_list = []
+        for kv in x:
+            try:
+                city_list.append(int(kv["code"]))
+            except:
+                city_list.append(-1)
+        # print('city_list:', city_list)
+        return city_list
+    except:
+        print(f'get_jd_city_id error, the origin x is {x}, and it has returned [-1].')
+        return [-1]
+
 
 # 获取学生期望城市编码
 def get_user_city_id(x):
-    city_list = [int(i) for i in x.split(',')]
-    return city_list
+    try:
+        city_list = [int(i) for i in x.split(',')]
+        return city_list
+    except:
+        print(f'get_jd_city_id error, the origin x is {x}, and it has returned [-1].')
+        return [-1]
 
 
 # 简历：判断 职位城市 和 期望工作城市 是否一致(或包含于)

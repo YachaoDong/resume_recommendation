@@ -122,6 +122,12 @@ if __name__ == '__main__':
     parser.add_argument('--tfidf_enc_jd', type=str, default=r'D:\CodeFiles\AI4recruitment\ai_recruitment\models\exp3\tfidf_enc_jd.dat', help='暂不使用')
     parser.add_argument('--svd_tag_jd', type=str, default=r'D:\CodeFiles\AI4recruitment\ai_recruitment\models\exp3\svd_tag_jd.dat', help='暂不使用')
 
+    # 结构后处理，排序信息  rule_feats
+    parser.add_argument('--use_rule_sort', type=bool, default=False, help='是否使用规则排序，即先按照是否为同一城市、学历要求是否相符合等等规则先进行排序')
+    # all rule feats:['same_user_city', 'gt_edu', 'min_desire_salary_num', 'max_desire_salary_num', 'same_jd_sub', 'same_desire_industry']
+    parser.add_argument('--rule_feats', type=list, default=['same_user_city', 'min_desire_salary_num', 'same_desire_industry'], help='使用规则排的特征')
+
+
     # flask 本地信息，ip port
     parser.add_argument('--local_host', type=str, default="172.31.26.230", help='当前server ip地址')
     parser.add_argument('--flask_port', type=int, default=5000, help='flask 端口')
@@ -143,6 +149,8 @@ if __name__ == '__main__':
         args.delivered_model = cfg["MODEL"]["delivered_model"]
         args.satisfied_model = cfg["MODEL"]["satisfied_model"]
 
+        args.use_rule_sort = cfg['POST_PROCESS']["use_rule_sort"]
+        args.rule_feats = cfg['POST_PROCESS']["rule_feats"]
     print("---------- args content ----------")
     for k, v in sorted(vars(args).items()):
         print(k, '=', v)

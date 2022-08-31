@@ -160,11 +160,17 @@ def infer_flask(recommend_id, user_flag, args,
 
     final_pred = predict(input_X=jd_user_df.values, delivered_model=delivered_model, satisfied_model=satisfied_model)
     # 结果排序，返回排序后的index
-    jd_usr_id_df['final_pred'] = final_pred
     # TODO 可增加按照 是否为同一城市、是否行业相同等值排序
+    sort_feats = ['final_pred']
+    if args.use_rule_sort:
+        jd_usr_id_df[args.rule_feats] = jd_user_df[args.rule_feats]
+        # 先规则，再pred_score进行排序
+        sort_feats = args.rule_feats + sort_feats
+    jd_usr_id_df['final_pred'] = final_pred
+
 
     if user_flag:
-        final_index = jd_usr_id_df.sort_values(['final_pred'])['jd_no']
+        final_index = jd_usr_id_df.sort_values(sort_feats,  ascending=False)['jd_no']
     else:
         final_index = jd_usr_id_df.sort_values(['final_pred'])['user_id']
 

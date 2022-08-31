@@ -28,3 +28,7 @@ MODEL:
 #  use_doc2vec : True
 #  use_tfidf: False
 
+POST_PROCESS:
+  use_rule_sort: False
+  # all rule feats:['same_user_city', 'gt_edu', 'min_desire_salary_num', 'max_desire_salary_num', 'same_jd_sub', 'same_desire_industry']
+  rule_feats: ['same_user_city', 'min_desire_salary_num', 'same_desire_industry']
